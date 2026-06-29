@@ -1,0 +1,11 @@
+{
+  "name": "carbonio-preview-db",
+  "description": "Carbonio Preview database sidecar",
+  "buildDir": "/tmp/",
+  "output": "artifacts",
+  "projects": [
+    {
+      "name": "package"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+# SPDX-FileCopyrightText: 2023 Zextras <https://www.zextras.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+
+pkgname="carbonio-preview-db"
+pkgver="0.0.6"
+pkgrel="SNAPSHOT"
+pkgdesc="Carbonio Preview database sidecar"
+maintainer="Zextras <packages@zextras.com>"
+section="mail"
+priority="optional"
+arch=('x86_64')
+copyright=(
+  "2022, Zextras <https://www.zextras.com>"
+)
+license=(
+  "AGPL-3.0-only"
+)
+url="https://github.com/zextras"
+depends__apt=(
+  "service-discover"
+  "pending-setups"
+  "carbonio-core"
+  "postgresql-client"
+)
+
+depends__yum=(
+  "service-discover"
+  "pending-setups"
+  "carbonio-core"
+  "postgresql"
+)
+
+source=(
+  "111-${pkgname}-setup.sh"
+  "${pkgname}.hcl"
+  "${pkgname}-bootstrap"
+  "${pkgname}-setup"
+  "${pkgname}-sidecar.service"
+  "${pkgname}-sidecar-legacy.service"
+  "intentions.json"
+  "policies.json"
+  "service-protocol.json"
+)
+backup=(
+  "etc/zextras/service-discover/${pkgname}.hcl"
+)
+
+sha256sums=(
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+)
+
+_package_common() {
+  install -Dm644 "${srcdir}/111-${pkgname}-setup.sh" \
+    "${pkgdir}/etc/zextras/pending-setups.d/111-${pkgname}-setup.sh"
+
+  install -Dm755 "${srcdir}/${pkgname}-setup" \
+    "${pkgdir}/usr/bin/${pkgname}-setup"
+
+  install -Dm755 "${srcdir}/${pkgname}-bootstrap" \
+    "${pkgdir}/usr/bin/${pkgname}-bootstrap"
+
+  install -Dm644 "${srcdir}/${pkgname}.hcl" \
+    "${pkgdir}/etc/zextras/service-discover/${pkgname}.hcl"
+
+  install -Dm644 "${srcdir}/intentions.json" \
+    "${pkgdir}/etc/carbonio/preview-db/service-discover/intentions.json"
+
+  install -Dm644 "${srcdir}/policies.json" \
+    "${pkgdir}/etc/carbonio/preview-db/service-discover/policies.json"
+
+  install -Dm644 "${srcdir}/service-protocol.json" \
+    "${pkgdir}/etc/carbonio/preview-db/service-discover/service-protocol.json"
+}
+
+_package_systemd() {
+  _package_common
+  install -Dm644 "${srcdir}/${pkgname}-sidecar.service" \
+    "${pkgdir}/lib/systemd/system/${pkgname}-sidecar.service"
+}
+
+_package_legacy() {
+  _package_common
+  install -Dm644 "${srcdir}/${pkgname}-sidecar-legacy.service" \
+    "${pkgdir}/lib/systemd/system/${pkgname}-sidecar.service"
+}
+
+package() { _package_systemd; }
+package__rocky_8() { _package_legacy; }
+package__ubuntu_jammy() { _package_legacy; }
+
+postinst() {
+  getent group 'carbonio-preview-db' >/dev/null \
+    || groupadd -r 'carbonio-preview-db'
+  getent passwd 'carbonio-preview-db' >/dev/null \
+    || useradd -r -M -g 'carbonio-preview-db' -s /sbin/nologin 'carbonio-preview-db'
+
+  if [ -d /run/systemd/system ]; then
+    systemctl daemon-reload >/dev/null 2>&1 || :
+    systemctl enable carbonio-preview-db-sidecar.service >/dev/null 2>&1 || :
+  fi
+
+  echo "======================================================="
+  echo "Carbonio Preview DB installed successfully!             "
+  echo "You must run pending-setups to configure it correctly."
+  echo "======================================================="
+}
+
+prerm() {
+  if [ -d /run/systemd/system ]; then
+    systemctl disable --now carbonio-preview-db-sidecar.service >/dev/null 2>&1 || :
+  fi
+}
+
+postrm() {
+  if [ -d /run/systemd/system ]; then
+    systemctl daemon-reload >/dev/null 2>&1 || :
+  fi
+}
