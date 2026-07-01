@@ -67,9 +67,9 @@ and stored in `service-discover`.
 All the necessary configurations are saved automatically in the `service-discover` configuration
 system. They can be retrieved with the following commands:
 
-- `consul kv get -token-file="/etc/carbonio/preview/service-discover/token" "carbonio-preview/db-name"`
-- `consul kv get -token-file="/etc/carbonio/preview/service-discover/token" "carbonio-preview/db-username"`
-- `consul kv get -token-file="/etc/carbonio/preview/service-discover/token" "carbonio-preview/db-password"`
+- `consul kv get -token-file="/etc/carbonio/preview/service-discover/token" "carbonio-preview/database/credentials/db-name"`
+- `consul kv get -token-file="/etc/carbonio/preview/service-discover/token" "carbonio-preview/database/credentials/db-username"`
+- `consul kv get -token-file="/etc/carbonio/preview/service-discover/token" "carbonio-preview/database/credentials/db-password"`
 
 ## License 📚
 
