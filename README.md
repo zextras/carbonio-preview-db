@@ -101,13 +101,13 @@ s.r.l. and is licensed under [CC-BY-NC-SA](https://creativecommons.org/licenses/
 
 Where not specified, all source files owned by Zextras s.r.l. are licensed under AGPL-3.0-only
 
-[contributors-badge]: https://img.shields.io/github/contributors/zextras/carbonio-preview-sdk "Contributors"
+[contributors-badge]: https://img.shields.io/github/contributors/zextras/carbonio-preview-db "Contributors"
 
-[contributors]: https://github.com/zextras/carbonio-preview-sdk/graphs/contributors "Contributors"
+[contributors]: https://github.com/zextras/carbonio-preview-db/graphs/contributors "Contributors"
 
-[activity-badge]: https://img.shields.io/github/commit-activity/m/zextras/carbonio-preview-sdk "Activity"
+[activity-badge]: https://img.shields.io/github/commit-activity/m/zextras/carbonio-preview-db "Activity"
 
-[activity]: https://github.com/zextras/carbonio-preview-sdk/pulse "Activity"
+[activity]: https://github.com/zextras/carbonio-preview-db/pulse "Activity"
 
 [license-badge]: https://img.shields.io/badge/license-AGPL-blue.svg
 
