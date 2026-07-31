@@ -45,7 +45,7 @@ or via yum:
 
  ```bash
 sudo yum install carbonio-preview-db
-```   
+```  
 
 ### Configuration
 
