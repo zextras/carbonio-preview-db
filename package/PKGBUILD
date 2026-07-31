@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 
 pkgname="carbonio-preview-db"
-pkgver="1.0.2"
+pkgver="1.0.3"
 pkgrel="SNAPSHOT"
 pkgdesc="Carbonio Preview database sidecar"
 maintainer="Zextras <packages@zextras.com>"
