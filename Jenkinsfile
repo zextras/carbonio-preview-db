@@ -19,5 +19,12 @@ dt3_pipeline(
         ubuntuSinglePkg: false,
         rockySinglePkg: false,
     ],
+    docker: [[
+        dockerfile: 'docker/preview-db-sidecar/Dockerfile',
+        imageName: 'carbonio-preview-db-sidecar',
+        platforms: ['linux/amd64', 'linux/arm64'] as Set,
+        title: 'Carbonio Preview DB Sidecar',
+        description: 'Carbonio Preview DB sidecar service',
+    ]],
     reuse: [projectType: 'CE']
 )
