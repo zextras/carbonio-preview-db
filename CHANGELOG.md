@@ -1,3 +1,9 @@
+## [1.0.17](https://github.com/zextras/carbonio-preview-db/compare/v1.0.16...v1.0.17) (2026-09-01)
+
+### Bug Fixes
+
+* **release:** update semantic-release branch to main ([#23](https://github.com/zextras/carbonio-preview-db/issues/23)) ([7a0211c](https://github.com/zextras/carbonio-preview-db/commit/7a0211c130146823189932aac19ca432c4be6f11))
+
 ## [1.0.16](https://github.com/zextras/carbonio-preview-db/compare/v1.0.15...v1.0.16) (2026-09-01)
 
 ## [1.0.15](https://github.com/zextras/carbonio-preview-db/compare/v1.0.14...v1.0.15) (2026-08-27)
