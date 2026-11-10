@@ -1,3 +1,10 @@
+## [1.0.38](https://github.com/zextras/carbonio-preview-db/compare/v1.0.37...v1.0.38) (2026-11-10)
+
+### Bug Fixes
+
+* **docker:** create the carbonio-preview-db sidecar system user ([#53](https://github.com/zextras/carbonio-preview-db/issues/53)) ([e9715c7](https://github.com/zextras/carbonio-preview-db/commit/e9715c76db09e665c5b9c1acb1b838fbfc2d75a4))
+* **setup:** reuse a deterministic Consul token per node - CO-3612 ([#48](https://github.com/zextras/carbonio-preview-db/issues/48)) ([9d0264e](https://github.com/zextras/carbonio-preview-db/commit/9d0264ead8449dfba60da156fced3c20b06874c7))
+
 ## [1.0.37](https://github.com/zextras/carbonio-preview-db/compare/v1.0.36...v1.0.37) (2026-10-23)
 
 ## [1.0.36](https://github.com/zextras/carbonio-preview-db/compare/v1.0.35...v1.0.36) (2026-10-20)
