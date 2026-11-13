@@ -1,3 +1,5 @@
+## [1.0.39](https://github.com/zextras/carbonio-preview-db/compare/v1.0.38...v1.0.39) (2026-11-13)
+
 ## [1.0.38](https://github.com/zextras/carbonio-preview-db/compare/v1.0.37...v1.0.38) (2026-11-10)
 
 ### Bug Fixes
