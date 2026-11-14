@@ -1,3 +1,9 @@
+## [1.0.40](https://github.com/zextras/carbonio-preview-db/compare/v1.0.39...v1.0.40) (2026-11-14)
+
+### Bug Fixes
+
+* fail the bootstrap when Consul KV can't be written (CO-4748) ([#55](https://github.com/zextras/carbonio-preview-db/issues/55)) ([7302abf](https://github.com/zextras/carbonio-preview-db/commit/7302abf3d84d19ff9f4922a4defbd8eca8688841))
+
 ## [1.0.39](https://github.com/zextras/carbonio-preview-db/compare/v1.0.38...v1.0.39) (2026-11-13)
 
 ## [1.0.38](https://github.com/zextras/carbonio-preview-db/compare/v1.0.37...v1.0.38) (2026-11-10)
