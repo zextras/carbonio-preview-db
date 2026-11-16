@@ -1,3 +1,9 @@
+## [1.0.41](https://github.com/zextras/carbonio-preview-db/compare/v1.0.40...v1.0.41) (2026-11-16)
+
+### Bug Fixes
+
+* [CO-3502] skip the preview-db sidecar until its token exists ([#56](https://github.com/zextras/carbonio-preview-db/issues/56)) ([356719e](https://github.com/zextras/carbonio-preview-db/commit/356719e5c8c7ebcd8d17febbedf12a3522ff10f4))
+
 ## [1.0.40](https://github.com/zextras/carbonio-preview-db/compare/v1.0.39...v1.0.40) (2026-11-14)
 
 ### Bug Fixes
