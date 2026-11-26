@@ -42,9 +42,6 @@ source=(
   "policies.json"
   "service-protocol.json"
 )
-backup=(
-  "etc/zextras/service-discover/${pkgname}.hcl"
-)
 
 sha256sums=(
   '4f0215482599d5d8867d8d83bd973f7a3ea7d0085352443e34ff01883af834ae'
