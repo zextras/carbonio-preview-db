@@ -49,9 +49,9 @@ source=(
 sha256sums=(
   '4f0215482599d5d8867d8d83bd973f7a3ea7d0085352443e34ff01883af834ae'
   'df862daabcd964f4902bf00b78551376eca8a1318967edf3966166addab2ff01'
-  '4c51f8e0d99ed5f5321f5f275b7a61abff80c6282846827adcfa0d6af64b66e7'
+  '041f91da39adcd5ea30a8faf063fcb86d765e8cef88fa09f2bafe04644a8d860'
   'ac6d1cc6139ba8cc25cb8871660ecd59fcea1a7619673577ceaffb639a695daf'
-  '69693287594c72c81d1ce82c0531735c6a222a89ce12c3b456977611de2d21c1'
+  '7335c5d04ad211846c19845ad2df56190cc83232f602a338b681752a9b747716'
   'befcde0e2233b08e616d5fab6fb3a64ff2214eb2c01949bdf1fe8c226a9f6948'
   '78b6389b52b9e4d5925d13bca1b8ca7f475e8d774792520e1e13521c8f545ab8'
   '38eb6c7f85f0e0990919156422372be6b2000372275ccb08e129f22d1dd49f12'
@@ -112,7 +112,6 @@ postinst() {
   fi
 
   if [ "$1" = "configure" ]; then
-    carbonio-preview-db-hcl migrate || :
     carbonio-preview-db-hcl render || echo "WARNING: hcl render failed, run carbonio-preview-db-setup"
   fi
 
@@ -123,7 +122,6 @@ postinst() {
 }
 
 posttrans() {
-  carbonio-preview-db-hcl migrate || :
   carbonio-preview-db-hcl render || echo "WARNING: hcl render failed, run carbonio-preview-db-setup"
 }
 

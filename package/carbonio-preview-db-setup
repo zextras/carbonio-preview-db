@@ -10,7 +10,6 @@ if [[ $(id -u) -ne 0 ]]; then
 fi
 
 if command -v carbonio-preview-db-hcl > /dev/null; then
-  carbonio-preview-db-hcl migrate || :
   if ! carbonio-preview-db-hcl render; then
     echo "Cannot render /etc/zextras/service-discover/carbonio-preview-db.hcl; leaving pending-setup to be retried."
     exit 1
