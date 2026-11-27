@@ -19,6 +19,7 @@ license=(
 url="https://github.com/zextras"
 depends__apt=(
   "service-discover"
+  "service-discover-template"
   "pending-setups"
   "carbonio-core"
   "postgresql-client"
@@ -26,6 +27,7 @@ depends__apt=(
 
 depends__yum=(
   "service-discover"
+  "service-discover-template"
   "pending-setups"
   "carbonio-core"
   "postgresql"
@@ -33,7 +35,8 @@ depends__yum=(
 
 source=(
   "111-${pkgname}-setup.sh"
-  "${pkgname}.hcl"
+  "${pkgname}-template.hcl"
+  "${pkgname}-hcl"
   "${pkgname}-bootstrap"
   "${pkgname}-setup"
   "${pkgname}-sidecar.service"
@@ -45,9 +48,10 @@ source=(
 
 sha256sums=(
   '4f0215482599d5d8867d8d83bd973f7a3ea7d0085352443e34ff01883af834ae'
-  '7eaa152288cc56282f04fc3b163994c40b898a92c35c5b9a4c5c71dbb25f09b9'
+  'f9fa2903bc02a463a4c710845aa18ae879cfa40723714bf89d2cb7c9127a72d8'
+  '4bc077dbfbd19176bb512c28171970d648e7d60183fc8b2210ca0dd0b37ee719'
   'ac6d1cc6139ba8cc25cb8871660ecd59fcea1a7619673577ceaffb639a695daf'
-  'cc7bc0637dc080a5500808214d8b013001d69ce8d22ebcf08976bf5758050138'
+  '69693287594c72c81d1ce82c0531735c6a222a89ce12c3b456977611de2d21c1'
   'befcde0e2233b08e616d5fab6fb3a64ff2214eb2c01949bdf1fe8c226a9f6948'
   '78b6389b52b9e4d5925d13bca1b8ca7f475e8d774792520e1e13521c8f545ab8'
   '38eb6c7f85f0e0990919156422372be6b2000372275ccb08e129f22d1dd49f12'
@@ -65,8 +69,10 @@ _package_common() {
   install -Dm755 "${srcdir}/${pkgname}-bootstrap" \
     "${pkgdir}/usr/bin/${pkgname}-bootstrap"
 
-  install -Dm644 "${srcdir}/${pkgname}.hcl" \
-    "${pkgdir}/etc/zextras/service-discover/${pkgname}.hcl"
+  install -Dm644 "${srcdir}/${pkgname}-template.hcl" \
+    "${pkgdir}/etc/zextras/service-discover/templates/${pkgname}-template.hcl"
+  install -Dm755 "${srcdir}/${pkgname}-hcl" \
+    "${pkgdir}/usr/bin/${pkgname}-hcl"
 
   install -Dm644 "${srcdir}/intentions.json" \
     "${pkgdir}/etc/carbonio/preview-db/service-discover/intentions.json"
@@ -105,10 +111,20 @@ postinst() {
     systemctl enable carbonio-preview-db-sidecar.service >/dev/null 2>&1 || :
   fi
 
+  if [ "$1" = "configure" ]; then
+    carbonio-preview-db-hcl migrate || :
+    carbonio-preview-db-hcl render || echo "WARNING: hcl render failed, run carbonio-preview-db-setup"
+  fi
+
   echo "======================================================="
   echo "Carbonio Preview DB installed successfully!             "
   echo "You must run pending-setups to configure it correctly."
   echo "======================================================="
+}
+
+posttrans() {
+  carbonio-preview-db-hcl migrate || :
+  carbonio-preview-db-hcl render || echo "WARNING: hcl render failed, run carbonio-preview-db-setup"
 }
 
 prerm() {
@@ -118,6 +134,11 @@ prerm() {
 }
 
 postrm() {
+  rm -f /etc/zextras/service-discover/carbonio-preview-db.hcl
+  if [ "$1" = "purge" ]; then
+    rm -f /etc/zextras/service-discover/carbonio-preview-db.env /etc/zextras/service-discover/carbonio-preview-db.hcl.bak
+  fi
+
   if [ -d /run/systemd/system ]; then
     systemctl daemon-reload >/dev/null 2>&1 || :
   fi
