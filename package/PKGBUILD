@@ -107,26 +107,10 @@ postinst() {
     systemctl enable carbonio-preview-db-sidecar.service >/dev/null 2>&1 || :
   fi
 
-  if [ "$1" = "configure" ]; then
-    env -i PATH=/usr/bin:/bin bash -c 'set -a; [ -r "$1" ] && . "$1"; exec consul-template -once -template "$2:$3"' _ \
-      /etc/zextras/service-discover/carbonio-preview-db.env \
-      /etc/zextras/service-discover/templates/carbonio-preview-db-template.hcl \
-      /etc/zextras/service-discover/carbonio-preview-db.hcl > /dev/null \
-      || echo "WARNING: cannot render /etc/zextras/service-discover/carbonio-preview-db.hcl, run carbonio-preview-db-setup"
-  fi
-
   echo "======================================================="
   echo "Carbonio Preview DB installed successfully!             "
   echo "You must run pending-setups to configure it correctly."
   echo "======================================================="
-}
-
-posttrans() {
-  env -i PATH=/usr/bin:/bin bash -c 'set -a; [ -r "$1" ] && . "$1"; exec consul-template -once -template "$2:$3"' _ \
-    /etc/zextras/service-discover/carbonio-preview-db.env \
-    /etc/zextras/service-discover/templates/carbonio-preview-db-template.hcl \
-    /etc/zextras/service-discover/carbonio-preview-db.hcl > /dev/null \
-    || echo "WARNING: cannot render /etc/zextras/service-discover/carbonio-preview-db.hcl, run carbonio-preview-db-setup"
 }
 
 prerm() {
