@@ -49,7 +49,7 @@ source=(
 sha256sums=(
   '4f0215482599d5d8867d8d83bd973f7a3ea7d0085352443e34ff01883af834ae'
   'df862daabcd964f4902bf00b78551376eca8a1318967edf3966166addab2ff01'
-  '041f91da39adcd5ea30a8faf063fcb86d765e8cef88fa09f2bafe04644a8d860'
+  '0c373bbf5ebf768ed3e5bb492ed6198666f4907a627f85ed528c4958b1c820ed'
   'ac6d1cc6139ba8cc25cb8871660ecd59fcea1a7619673577ceaffb639a695daf'
   '7335c5d04ad211846c19845ad2df56190cc83232f602a338b681752a9b747716'
   'befcde0e2233b08e616d5fab6fb3a64ff2214eb2c01949bdf1fe8c226a9f6948'
@@ -134,7 +134,7 @@ prerm() {
 postrm() {
   rm -f /etc/zextras/service-discover/carbonio-preview-db.hcl
   if [ "$1" = "purge" ]; then
-    rm -f /etc/zextras/service-discover/carbonio-preview-db.env /etc/zextras/service-discover/carbonio-preview-db.hcl.bak
+    rm -f /etc/zextras/service-discover/carbonio-preview-db.env
   fi
 
   if [ -d /run/systemd/system ]; then
