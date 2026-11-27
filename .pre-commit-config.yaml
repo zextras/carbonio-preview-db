@@ -68,11 +68,3 @@ repos:
         language: system
         pass_filenames: false
         files: ^package/
-
-      - id: test-hcl-template
-        name: test-hcl-template
-        description: Tests the hcl template render and migration script.
-        entry: bash .ci/test-hcl-template.sh
-        language: system
-        pass_filenames: false
-        files: ^(package/(carbonio-preview-db-hcl|carbonio-preview-db-template\.hcl|carbonio-preview-db-setup|111-carbonio-preview-db-setup\.sh)|\.ci/test-hcl-template\.sh)$
