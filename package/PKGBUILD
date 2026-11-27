@@ -19,6 +19,7 @@ license=(
 url="https://github.com/zextras"
 depends__apt=(
   "service-discover"
+  "service-discover-template"
   "pending-setups"
   "carbonio-core"
   "postgresql-client"
@@ -26,6 +27,7 @@ depends__apt=(
 
 depends__yum=(
   "service-discover"
+  "service-discover-template"
   "pending-setups"
   "carbonio-core"
   "postgresql"
@@ -33,7 +35,7 @@ depends__yum=(
 
 source=(
   "111-${pkgname}-setup.sh"
-  "${pkgname}.hcl"
+  "${pkgname}-template.hcl"
   "${pkgname}-bootstrap"
   "${pkgname}-setup"
   "${pkgname}-sidecar.service"
@@ -42,15 +44,12 @@ source=(
   "policies.json"
   "service-protocol.json"
 )
-backup=(
-  "etc/zextras/service-discover/${pkgname}.hcl"
-)
 
 sha256sums=(
   '4f0215482599d5d8867d8d83bd973f7a3ea7d0085352443e34ff01883af834ae'
-  '7eaa152288cc56282f04fc3b163994c40b898a92c35c5b9a4c5c71dbb25f09b9'
+  '44c2b2f2d60642d3b9145e75bccec14e8b408ff8c261b7eb6deeecdee18c2485'
   'ac6d1cc6139ba8cc25cb8871660ecd59fcea1a7619673577ceaffb639a695daf'
-  'cc7bc0637dc080a5500808214d8b013001d69ce8d22ebcf08976bf5758050138'
+  '6e649d613bf5f53ca0e65fb893b55bf0113a393a023d943cb700d9872126b8f4'
   'befcde0e2233b08e616d5fab6fb3a64ff2214eb2c01949bdf1fe8c226a9f6948'
   '78b6389b52b9e4d5925d13bca1b8ca7f475e8d774792520e1e13521c8f545ab8'
   '38eb6c7f85f0e0990919156422372be6b2000372275ccb08e129f22d1dd49f12'
@@ -68,8 +67,8 @@ _package_common() {
   install -Dm755 "${srcdir}/${pkgname}-bootstrap" \
     "${pkgdir}/usr/bin/${pkgname}-bootstrap"
 
-  install -Dm644 "${srcdir}/${pkgname}.hcl" \
-    "${pkgdir}/etc/zextras/service-discover/${pkgname}.hcl"
+  install -Dm644 "${srcdir}/${pkgname}-template.hcl" \
+    "${pkgdir}/etc/zextras/service-discover/templates/${pkgname}-template.hcl"
 
   install -Dm644 "${srcdir}/intentions.json" \
     "${pkgdir}/etc/carbonio/preview-db/service-discover/intentions.json"
@@ -121,6 +120,11 @@ prerm() {
 }
 
 postrm() {
+  rm -f /etc/zextras/service-discover/carbonio-preview-db.hcl
+  if [ "$1" = "purge" ]; then
+    rm -f /etc/zextras/service-discover/carbonio-preview-db.env
+  fi
+
   if [ -d /run/systemd/system ]; then
     systemctl daemon-reload >/dev/null 2>&1 || :
   fi
